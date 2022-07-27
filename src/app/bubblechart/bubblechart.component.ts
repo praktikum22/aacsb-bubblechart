@@ -1,4 +1,6 @@
+import { formatDate } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {
   Chart,
   ChartConfiguration,
@@ -18,15 +20,34 @@ import {
 export class BubblechartComponent {
   @Input() bubbleChartData!: any[];
 
+  months = [
+    'jan',
+    'feb',
+    'mär',
+    'apr',
+    'mai',
+    'jun',
+    'jul',
+    'aug',
+    'sep',
+    'oct',
+    'nov',
+    'dez',
+  ];
   public BubblechartOptions: any = {
     type: 'bubble',
+    backgroundColor: '#36a2eb',
+
     responsive: true,
     display: true,
     animation: true,
     plugins: {
+      legend: {
+        display: false,
+      },
       title: {
         display: true,
-        text: 'Demotext',
+        text: 'Activities',
         font: {
           size: 40,
         },
@@ -37,26 +58,36 @@ export class BubblechartComponent {
         display: true,
         title: {
           display: true,
-          text: 'Datum',
+          text: 'Last edit',
         },
         ticks: {
-          min: 0,
-          max: 30,
+          beginAtZero: true,
+
+          display: true,
+          callback: (value: any, index: number) => {
+            console.log(value);
+            return this.months[index];
+          },
         },
       },
       y: {
         display: true,
         title: {
           display: true,
-          text: 'Datum',
+          text: 'Last login',
         },
         ticks: {
-          min: 0,
-          max: 30,
+          beginAtZero: true,
+          display: true,
+          callback: (value: any, index: number) => {
+            console.log(value);
+            return this.months[index];
+          },
         },
       },
     },
   };
+
   public bubbleChartType: any = 'bubble';
 
   constructor() {}
