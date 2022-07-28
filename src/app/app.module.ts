@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+import 'chartjs-adapter-date-fns';
 import { AppComponent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
 import { BubblechartComponent } from './bubblechart/bubblechart.component';

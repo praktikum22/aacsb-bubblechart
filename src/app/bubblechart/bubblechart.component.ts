@@ -1,5 +1,6 @@
-import { formatDate } from '@angular/common';
+import { formatDate, NgIfContext } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControlDirective } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {
   Chart,
@@ -20,20 +21,6 @@ import {
 export class BubblechartComponent {
   @Input() bubbleChartData!: any[];
 
-  months = [
-    'jan',
-    'feb',
-    'mär',
-    'apr',
-    'mai',
-    'jun',
-    'jul',
-    'aug',
-    'sep',
-    'oct',
-    'nov',
-    'dez',
-  ];
   public BubblechartOptions: any = {
     type: 'bubble',
     backgroundColor: '#36a2eb',
@@ -52,9 +39,57 @@ export class BubblechartComponent {
           size: 40,
         },
       },
+      tooltip: {
+        borderWidth: 1,
+        borderColor: '#7cd5ff',
+        displayColors: false,
+        backgroundColor: '#fff',
+        titleColor: 'black',
+        titleAlign: 'center',
+        bodyColor: 'black',
+        callbacks: {
+          label: function (context: any) {
+            console.log(context);
+            return `Activities: ${context.raw.o}`;
+          },
+          title: function (context: any) {
+            console.log(context);
+
+            return context[0].raw.p;
+          },
+          beforeLabel: function (context: any) {
+            console.log(context);
+            const formatted_date_x =
+              context.raw.x.getMonth() +
+              1 +
+              '.' +
+              context.raw.x.getDate() +
+              '.' +
+              context.raw.x.getFullYear();
+
+            return `Last Edit: ${formatted_date_x}`;
+          },
+          afterLabel: function (context: any) {
+            console.log(context);
+            const formatted_date_y =
+              context.raw.y.getMonth() +
+              1 +
+              '.' +
+              context.raw.y.getDate() +
+              '.' +
+              context.raw.y.getFullYear();
+
+            return `Last Login: ${formatted_date_y}`;
+          },
+        },
+      },
     },
     scales: {
-      x: {
+      xAxes: {
+        type: 'time',
+        time: {
+          unit: 'month',
+        },
         display: true,
         title: {
           display: true,
@@ -64,13 +99,13 @@ export class BubblechartComponent {
           beginAtZero: true,
 
           display: true,
-          callback: (value: any, index: number) => {
-            console.log(value);
-            return this.months[index];
-          },
         },
       },
-      y: {
+      yAxes: {
+        type: 'time',
+        time: {
+          unit: 'month',
+        },
         display: true,
         title: {
           display: true,
@@ -79,10 +114,6 @@ export class BubblechartComponent {
         ticks: {
           beginAtZero: true,
           display: true,
-          callback: (value: any, index: number) => {
-            console.log(value);
-            return this.months[index];
-          },
         },
       },
     },
