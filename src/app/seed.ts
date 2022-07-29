@@ -1,6 +1,6 @@
 export const data = [
   {
-    name: 'urs',
+    name: 'Fritz',
     last_login: '2022-09-21T14:35:48.568Z',
     last_edit: '2022-9-21T14:35:48.568Z',
     activities: [{ name: '1. activity' }],
