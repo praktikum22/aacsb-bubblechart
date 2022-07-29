@@ -9,8 +9,29 @@
 }
 
 .statusUndefinedLegend {
+  text-align: center;
+  justify-content: right;
+  place-content: right;
+  place-items: right;
+  background-color: rgba(255, 0, 0, 0.4);
+  width: 1vw;
+  height: 1vh;
+}
+
+.statusDefinedLegend {
+  text-align: center;
+  background-color: rgba(0, 255, 0, 0.4);
+  width: 1vw;
+  height: 1vh;
+}
+.container {
+  display: flex;
   justify-content: center;
   place-items: center;
-  display: flex;
-  border-color: red;
+  //background-color: aqua;
+}
+p {
+  margin-left: 0.5vw;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 2vw;
 }
