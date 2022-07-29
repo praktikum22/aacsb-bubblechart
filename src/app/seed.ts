@@ -8,8 +8,8 @@ export const data = [
   },
   {
     name: 'Nick',
-    last_login: '2022-04-14T14:35:48.568Z',
-    last_edit: '2022-03-10T14:35:48.568Z',
+    last_login: '2022-12-14T14:35:48.568Z',
+    last_edit: '2022-12-10T14:35:48.568Z',
     activities: [
       { name: '1. activity' },
       { name: '1. activity' },

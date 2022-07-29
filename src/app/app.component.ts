@@ -13,6 +13,7 @@ export class AppComponent {
   public bubbleChartData: any[] = [];
 
   public users = data;
+  data: any;
 
   constructor() {
     // console.log(this.bubbleChartData[0])
@@ -27,6 +28,7 @@ export class AppComponent {
           return value.x == user.activities.length;
         })
       );
+
       this.bubbleChartData.push({
         data: [
           {
@@ -35,6 +37,7 @@ export class AppComponent {
             r: Math.log(user.activities.length) * 10 + 8,
             o: user.activities.length,
             p: user.name,
+            u: user.status,
           },
         ],
       });

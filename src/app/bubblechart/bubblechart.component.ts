@@ -2,6 +2,7 @@ import { formatDate, NgIfContext } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControlDirective } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { data } from '../seed';
 import {
   Chart,
   ChartConfiguration,
@@ -22,12 +23,43 @@ export class BubblechartComponent {
   @Input() bubbleChartData!: any[];
 
   public BubblechartOptions: any = {
-    type: 'bubble',
-    backgroundColor: '#36a2eb',
+    backgroundColor: function (context: any) {
+      console.log(context);
+      let backgroundColor;
 
+      if (context.raw.u == undefined) {
+        backgroundColor = 'rgba(255,0,0,0.4';
+      } else {
+        backgroundColor = 'rgba(0,255,0,0.4)';
+      }
+      return backgroundColor;
+    },
+
+    hoverBackgroundColor: function (context: any) {
+      console.log(context);
+      let hoverBackgroundColor;
+      if (context.raw.u == undefined) {
+        hoverBackgroundColor = 'rgba(255,0,0,0.8';
+      } else {
+        hoverBackgroundColor = 'rgba(0,255,0,0.8)';
+      }
+      return hoverBackgroundColor;
+    },
+    hoverBorderColor: function (context: any) {
+      console.log(context);
+      let hoverBorderColor;
+      if (context.raw.u == undefined) {
+        hoverBorderColor = 'rgba(255,0,0,0.8';
+      } else {
+        hoverBorderColor = 'rgba(0,255,0,0.8)';
+      }
+      return hoverBorderColor;
+    },
+    type: 'bubble',
     responsive: true,
     display: true,
     animation: true,
+
     plugins: {
       legend: {
         display: false,
@@ -50,7 +82,15 @@ export class BubblechartComponent {
         callbacks: {
           label: function (context: any) {
             console.log(context);
-            return `Activities: ${context.raw.o}`;
+            const formatted_date_y =
+              context.raw.y.getMonth() +
+              1 +
+              '.' +
+              context.raw.y.getDate() +
+              '.' +
+              context.raw.y.getFullYear();
+
+            return `Last Login: ${formatted_date_y}`;
           },
           title: function (context: any) {
             console.log(context);
@@ -71,15 +111,7 @@ export class BubblechartComponent {
           },
           afterLabel: function (context: any) {
             console.log(context);
-            const formatted_date_y =
-              context.raw.y.getMonth() +
-              1 +
-              '.' +
-              context.raw.y.getDate() +
-              '.' +
-              context.raw.y.getFullYear();
-
-            return `Last Login: ${formatted_date_y}`;
+            return `Activities: ${context.raw.o}`;
           },
         },
       },
